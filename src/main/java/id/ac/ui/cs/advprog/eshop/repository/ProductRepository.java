@@ -13,6 +13,9 @@ public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
 
     public Product create(Product product) {
+        if (product.getProductQuantity()<0){
+            throw new IllegalArgumentException("Product quantity cannot be less than 0");
+        }
         UUID uuid = UUID.randomUUID();
         product.setProductId(uuid.toString());
         productData.add(product);
@@ -33,6 +36,10 @@ public class ProductRepository {
     }
 
     public Product updateProduct(String id, Product updatedProductData) {
+        if (updatedProductData.getProductQuantity() < 0) {
+            throw new IllegalArgumentException("Product quantity cannot be less  than 0");
+        }
+
         Product existingProduct = findById(id);
 
         if (existingProduct != null) {
