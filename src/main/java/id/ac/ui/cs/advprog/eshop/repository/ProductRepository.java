@@ -32,13 +32,14 @@ public class ProductRepository {
         return null;
     }
 
-    public Product update(Product updatedProduct) {
-        for (int i = 0; i < productData.size(); i++) {
-            Product product = productData.get(i);
-            if (product.getProductId().equals(updatedProduct.getProductId())) {
-                productData.set(i, updatedProduct);
-                return updatedProduct;
-            }
+    public Product updateProduct(String id, Product updatedProductData) {
+        Product existingProduct = findById(id);
+
+        if (existingProduct != null) {
+            existingProduct.setProductName(updatedProductData.getProductName());
+            existingProduct.setProductQuantity(updatedProductData.getProductQuantity());
+
+            return existingProduct;
         }
         return null;
     }
