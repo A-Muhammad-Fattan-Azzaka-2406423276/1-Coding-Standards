@@ -35,7 +35,7 @@ public class ProductRepository {
         return null;
     }
 
-    public Product updateProduct(String id, Product updatedProductData) {
+    public Product update(String id, Product updatedProductData) {
         if (updatedProductData.getProductQuantity() < 0) {
             throw new IllegalArgumentException("Product quantity cannot be less  than 0");
         }

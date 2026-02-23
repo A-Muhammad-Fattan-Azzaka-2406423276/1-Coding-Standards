@@ -86,6 +86,7 @@ public class ProductRepositoryTest {
     void testUpdateProductSuccess() {
         Product product = new Product();
         product.setProductName("Sampo Cap Bambang");
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductQuantity(100);
         productRepository.create(product);
 
@@ -94,7 +95,7 @@ public class ProductRepositoryTest {
         updatedProduct.setProductName("Sampo Cap Budi");
         updatedProduct.setProductQuantity(200);
 
-        Product result = productRepository.update(updatedProduct);
+        Product result = productRepository.update(product.getProductId(),updatedProduct);
 
         assertNotNull(result);
         assertEquals(product.getProductId(), result.getProductId());
@@ -110,6 +111,7 @@ public class ProductRepositoryTest {
     void testUpdateProductNegativeQuantity() {
         Product product = new Product();
         product.setProductName("Sampo Cap Bambang");
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductQuantity(100);
         productRepository.create(product);
 
@@ -119,7 +121,7 @@ public class ProductRepositoryTest {
         updatedProduct.setProductQuantity(-50);
 
         assertThrows(IllegalArgumentException.class, () -> {
-            productRepository.update(updatedProduct);
+            productRepository.update(product.getProductId(), updatedProduct);
         });
 
         Product savedProduct = productRepository.findById(product.getProductId());
