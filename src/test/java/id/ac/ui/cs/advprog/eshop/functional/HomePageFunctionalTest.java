@@ -13,6 +13,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+@ExtendWith(SeleniumJupiter.class)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 public class HomePageFunctionalTest {
     @LocalServerPort
     private int serverPort;
@@ -24,7 +26,7 @@ public class HomePageFunctionalTest {
 
     @BeforeEach
     void setUpTest(){
-        baseUrl = String.format("http://%s:%d", testBaseUrl, serverPort);
+        baseUrl = String.format("%s:%d", testBaseUrl, serverPort);
     }
 
     @Test
