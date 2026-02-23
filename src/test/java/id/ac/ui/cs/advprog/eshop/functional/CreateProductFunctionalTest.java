@@ -5,17 +5,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @ExtendWith(SeleniumJupiter.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class HomePageFunctionalTest {
+public class CreateProductFunctionalTest {
     @LocalServerPort
     private int serverPort;
 
@@ -30,18 +33,23 @@ public class HomePageFunctionalTest {
     }
 
     @Test
-    void pageTitle_isCorrect(ChromeDriver driver) throws Exception{
-        driver.get(baseUrl);
-        String pageTitle = driver.getTitle();
+    void createProduct_isSuccessful(ChromeDriver driver) throws Exception {
+        driver.get(baseUrl + "/product/create");
 
-        assertEquals("ADV Shop",pageTitle);
-    }
+        WebElement nameInput = driver.findElement(By.id("nameInput"));
+        nameInput.clear();
+        nameInput.sendKeys("Sampo Cap Bambang Functional Test");
 
-    @Test
-    void welcomePage_isCorrect(ChromeDriver driver) throws Exception{
-        driver.get(baseUrl);
-        String welcomeMessage = driver.findElement(By.tagName("h3")).getText();
+        WebElement quantityInput = driver.findElement(By.id("quantityInput"));
+        quantityInput.clear();
+        quantityInput.sendKeys("150");
 
-        assertEquals("Welcome",welcomeMessage);
+        WebElement submitButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        submitButton.click();
+
+        assertEquals(baseUrl + "/product/list", driver.getCurrentUrl());
+
+        String pageSource = driver.getPageSource();
+        assertTrue(pageSource.contains("Sampo Cap Bambang Functional Test"));
     }
 }
