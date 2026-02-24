@@ -131,8 +131,9 @@ public class ProductRepositoryTest {
         updatedProduct.setProductName("Sampo Cap Budi");
         updatedProduct.setProductQuantity(-50);
 
+        String productId = product.getProductId();
         assertThrows(IllegalArgumentException.class, () -> {
-            productRepository.update(product.getProductId(), updatedProduct);
+            productRepository.update(productId, updatedProduct);
         });
 
         Product savedProduct = productRepository.findById(product.getProductId());
