@@ -38,6 +38,20 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    void testCreateNegativeQuantityProduct(){
+        Product product=new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(-10);
+
+        assertThrows(IllegalArgumentException.class, ()->{
+            productRepository.create(product);
+        });
+        String idProduct = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        assertNull(productRepository.findById(idProduct));
+    }
+
+    @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
@@ -127,5 +141,16 @@ public class ProductRepositoryTest {
         Product savedProduct = productRepository.findById(product.getProductId());
         assertEquals("Sampo Cap Bambang", savedProduct.getProductName());
         assertEquals(100, savedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testDeleteProduct_NotFound() {
+        assertNull(productRepository.delete("00191920"));
+    }
+
+    @Test
+    void testUpdateProduct_NotFound() {
+        Product updatedProduct = new Product();
+        assertNull(productRepository.update("00191920", updatedProduct));
     }
 }
