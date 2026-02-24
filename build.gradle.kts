@@ -84,5 +84,6 @@ sonar {
     properties {
         property("sonar.projectKey", "A-Muhammad-Fattan-Azzaka-2406423276_1-Coding-Standards")
         property("sonar.organization", "a-muhammad-fattan-azzaka-2406423276")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
