@@ -1,6 +1,5 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
-import id.ac.ui.cs.advprog.eshop.model.ProductTest;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -8,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 
 import java.util.Iterator;
 
@@ -134,8 +131,9 @@ public class ProductRepositoryTest {
         updatedProduct.setProductName("Sampo Cap Budi");
         updatedProduct.setProductQuantity(-50);
 
+        String productId = product.getProductId();
         assertThrows(IllegalArgumentException.class, () -> {
-            productRepository.update(product.getProductId(), updatedProduct);
+            productRepository.update(productId, updatedProduct);
         });
 
         Product savedProduct = productRepository.findById(product.getProductId());
