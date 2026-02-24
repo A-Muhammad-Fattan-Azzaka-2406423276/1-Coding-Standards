@@ -35,7 +35,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        productRepository.update(product);
+        String productId = product.getProductId();
+        productRepository.update(productId, product);
         return product;
     }
 
