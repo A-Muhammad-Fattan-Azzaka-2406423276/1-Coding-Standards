@@ -3,11 +3,13 @@ plugins {
     jacoco
     id("org.springframework.boot") version "3.5.10"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.sonarqube") version "7.1.0.6387"
 }
 
 group = "id.ac.ui.cs.advprog"
 version = "0.0.1-SNAPSHOT"
 description = "eshop"
+
 
 java {
     toolchain {
@@ -76,4 +78,12 @@ tasks.test{
 
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "A-Muhammad-Fattan-Azzaka-2406423276_1-Coding-Standards")
+        property("sonar.organization", "a-muhammad-fattan-azzaka-2406423276")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
