@@ -89,7 +89,7 @@ class ProductServiceTest {
         Product savedProduct = productService.create(product);
         assertFalse(productService.findAll().isEmpty());
 
-        productService.delete(savedProduct.getProductId());
+        productService.deleteProductById(savedProduct.getProductId());
 
         assertTrue(productService.findAll().isEmpty());
     }
