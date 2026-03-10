@@ -89,5 +89,4 @@ class OrderRepositoryTest {
         List<Order> result = orderRepository.findAllByAuthor("safira sudrajat");
         assertTrue(result.isEmpty());
     }
-}public class OrderRepository {
 }
