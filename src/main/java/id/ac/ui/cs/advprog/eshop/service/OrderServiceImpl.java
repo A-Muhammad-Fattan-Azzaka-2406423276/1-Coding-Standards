@@ -1,11 +1,13 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -15,21 +17,32 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(Order order) {
-        return null;
+        if (orderRepository.findById(order.getId()) != null) {
+            throw new IllegalStateException("Order already exists");
+        }
+        return orderRepository.save(order);
     }
 
     @Override
     public Order updateStatus(String orderId, String status) {
-        return null;
+        Order order = orderRepository.findById(orderId);
+        if (order == null) {
+            throw new NoSuchElementException("Order not found");
+        }
+        if (!OrderStatus.contains(status)) {
+            throw new IllegalArgumentException("Invalid status: " + status);
+        }
+        order.setStatus(status);
+        return orderRepository.save(order);
     }
 
     @Override
     public Order findById(String orderId) {
-        return null;
+        return orderRepository.findById(orderId);
     }
 
     @Override
     public List<Order> findAllByAuthor(String author) {
-        return null;
+        return orderRepository.findAllByAuthor(author);
     }
 }
